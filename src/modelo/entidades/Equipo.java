@@ -1,14 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package modelo.entidades;
-
-/**
- *
- * @author lilianatapia
- */
-
 
 public abstract class Equipo {
     private int id;
@@ -33,7 +23,7 @@ public abstract class Equipo {
         return id;
     }
 
-    public void setId(int id) { 
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -77,6 +67,6 @@ public abstract class Equipo {
         this.precio = precio;
     }
 
-    // Método abstracto para obtener el tipo de equipo
+    // Abstract method to get the type of equipment
     public abstract String getTipoEquipo();
 }

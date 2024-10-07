@@ -22,7 +22,6 @@ public class ControladorEquipo {
             System.out.println("Desktop registrado exitosamente.");
         } catch (SQLException e) {
             System.err.println("Error al registrar Desktop: " + e.getMessage());
-            // Aquí podrías manejar la excepción de manera más sofisticada, como mostrar un diálogo en la vista
         }
     }
 
@@ -33,14 +32,46 @@ public class ControladorEquipo {
             System.out.println("Laptop registrada exitosamente.");
         } catch (SQLException e) {
             System.err.println("Error al registrar Laptop: " + e.getMessage());
-            // Aquí podrías manejar la excepción de manera más sofisticada, como mostrar un diálogo en la vista
         }
     }
 
     // Método para listar todos los equipos
-    public List<Equipo> listarEquipos() throws SQLException {
-        return equipoDAO.listarEquipos();
+    public List<Equipo> listarEquipos() {
+        try {
+            return equipoDAO.listarEquipos();
+        } catch (SQLException e) {
+            System.err.println("Error al listar los equipos: " + e.getMessage());
+            return null;  // Handle returning an empty list or null
+        }
     }
 
-    // Otros métodos como actualizar, eliminar y buscar equipos pueden agregarse aquí
+    // Método para buscar un equipo por ID
+    public Equipo buscarEquipoPorId(int id) {
+        try {
+            return equipoDAO.buscarEquipoPorId(id);
+        } catch (SQLException e) {
+            System.err.println("Error al buscar equipo por ID: " + e.getMessage());
+            return null;  // Handle returning null if not found
+        }
+    }
+
+    // Método para eliminar un equipo por ID
+    public void eliminarEquipo(int id) {
+        try {
+            equipoDAO.eliminarEquipo(id);
+            System.out.println("Equipo eliminado exitosamente.");
+        } catch (SQLException e) {
+            System.err.println("Error al eliminar el equipo: " + e.getMessage());
+        }
+    }
+
+    // Método para actualizar un equipo
+    public void actualizarEquipo(Equipo equipo) {
+        try {
+            equipoDAO.actualizarEquipo(equipo);
+            System.out.println("Equipo actualizado exitosamente.");
+        } catch (SQLException e) {
+            System.err.println("Error al actualizar el equipo: " + e.getMessage());
+        }
+    }
 }

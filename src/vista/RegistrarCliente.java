@@ -6,18 +6,18 @@ package vista;
 
 import controlador.ControladorCliente;
 
+import javax.swing.JOptionPane;
+
 public class RegistrarCliente extends javax.swing.JInternalFrame {
 
-    private ControladorCliente controladorCliente;
+     private ControladorCliente controladorCliente;
 
     /**
      * Creates new form RegistrarCliente
      */
     public RegistrarCliente() {
         initComponents();
-       
-        
-     
+        controladorCliente = new ControladorCliente();
     }
 
     /**
@@ -63,8 +63,18 @@ public class RegistrarCliente extends javax.swing.JInternalFrame {
         jLabel6.setText("Teléfono");
 
         btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -133,6 +143,40 @@ public class RegistrarCliente extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+       // Get the user input from the form
+        String rut = txtRut.getText();
+        String nombreCompleto = txtNombreCompleto.getText();
+        String direccion = txtDireccion.getText();
+        String comuna = txtComuna.getText();
+        String email = txtEmail.getText();
+        String telefono = txtTelefono.getText();
+
+        try {
+            // Use the controller to handle the business logic
+            if (!controladorCliente.registrarCliente(rut, nombreCompleto, direccion, comuna, email, telefono)) {
+                JOptionPane.showMessageDialog(null, "El RUT ya está registrado en la base de datos.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "Registro Exitoso");
+                limpiarCampos();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al registrar cliente: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        limpiarCampos();
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void limpiarCampos() {
+        txtRut.setText("");
+        txtNombreCompleto.setText("");
+        txtDireccion.setText("");
+        txtComuna.setText("");
+        txtEmail.setText("");
+        txtTelefono.setText("");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;

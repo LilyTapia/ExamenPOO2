@@ -1,13 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package modelo.entidades;
 
-/**
- *
- * @author lilianatapia
- */
 public class Cliente {
 
     private String rut;
@@ -15,16 +7,16 @@ public class Cliente {
     private String direccion;
     private String comuna;
     private String email;
-    private int telefono;
+    private String telefono;
 
     // Constructor
-    public Cliente(String rut, String nombreCompleto, String direccion, String comuna, String email, int telefono) {
+    public Cliente(String rut, String nombreCompleto, String direccion, String comuna, String email, String telefono) {
         this.rut = rut;
         this.nombreCompleto = nombreCompleto;
         this.direccion = direccion;
         this.comuna = comuna;
-        this.email = email;
-        this.telefono = telefono;
+        setEmail(email);
+        setTelefono(telefono);
     }
 
     // Getters y Setters
@@ -65,15 +57,22 @@ public class Cliente {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        if (email != null && email.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
+            this.email = email;
+        } else {
+            throw new IllegalArgumentException("Invalid email format");
+        }
     }
 
-    public int getTelefono() {
+    public String getTelefono() {  // Changed to String
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
-        this.telefono = telefono;
+    public void setTelefono(String telefono) {
+        if (telefono != null && telefono.matches("\\+?\\d+")) {
+            this.telefono = telefono;
+        } else {
+            throw new IllegalArgumentException("Invalid phone number format");
+        }
     }
 }
-

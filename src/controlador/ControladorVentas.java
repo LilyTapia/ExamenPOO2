@@ -38,16 +38,8 @@ public class ControladorVentas {
                 return;
             }
 
-            // Obtener el equipo
-            List<Equipo> equipos = equipoDAO.listarEquipos();
-            Equipo equipoSeleccionado = null;
-            for (Equipo eq : equipos) {
-                if (eq.getId() == idEquipo) {
-                    equipoSeleccionado = eq;
-                    break;
-                }
-            }
-
+            // Obtener el equipo por ID
+            Equipo equipoSeleccionado = equipoDAO.buscarEquipoPorId(idEquipo);
             if (equipoSeleccionado == null) {
                 System.err.println("El equipo con ID " + idEquipo + " no existe.");
                 return;
@@ -59,24 +51,37 @@ public class ControladorVentas {
             System.out.println("Venta registrada exitosamente.");
         } catch (SQLException e) {
             System.err.println("Error al registrar venta: " + e.getMessage());
-            // Aquí podrías manejar la excepción de manera más sofisticada, como mostrar un diálogo en la vista
         }
     }
 
     // Método para listar todas las ventas
-    public List<Venta> listarVentas() throws SQLException {
-        return ventasDAO.listarVentas();
+    public List<Venta> listarVentas() {
+        try {
+            return ventasDAO.listarVentas();
+        } catch (SQLException e) {
+            System.err.println("Error al listar las ventas: " + e.getMessage());
+            return null;
+        }
     }
 
     // Método para listar ventas por tipo de equipo
-    public List<Venta> listarVentasPorTipo(String tipo) throws SQLException {
-        // Implementa este método en VentasDAO para filtrar las ventas según el tipo de equipo
-        return ventasDAO.listarVentasPorTipo(tipo);
+    public List<Venta> listarVentasPorTipo(String tipo) {
+        try {
+            return ventasDAO.listarVentasPorTipo(tipo);
+        } catch (SQLException e) {
+            System.err.println("Error al listar ventas por tipo: " + e.getMessage());
+            return null;
+        }
     }
 
     // Método para listar equipos disponibles
-    public List<Equipo> listarEquiposDisponibles() throws SQLException {
-        return equipoDAO.listarEquipos();
+    public List<Equipo> listarEquiposDisponibles() {
+        try {
+            return equipoDAO.listarEquipos();
+        } catch (SQLException e) {
+            System.err.println("Error al listar equipos disponibles: " + e.getMessage());
+            return null;
+        }
     }
 
     // Otros métodos como actualizar, eliminar ventas pueden agregarse aquí
